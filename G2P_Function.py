@@ -43,38 +43,7 @@ def load_g2p_drop_tone():
         p2g = json.load(f)
     return p2g
 
-def G2P_word(word):
-    g2p_consonants = load_g2p_consonants()
-    g2p_vowels = load_g2p_vowels()
-    falling_tone = load_g2p_falling_tone()
-    curve_tone = load_g2p_curve_tone()
-    broken_tone = load_g2p_broken_tone()
-    rising_tone = load_g2p_rising_tone()
-    drop_tone = load_g2p_drop_tone()
-
-    consonants = []
-    vowels = []
-    fallings = []
-    curves = []
-    brokens = []
-    risings = []
-    drops = []
-
-    for key, value in g2p_consonants.items():
-        consonants.append(key)
-    for key, value in g2p_vowels.items():
-        vowels.append(key)
-    for key, value in falling_tone.items():
-        fallings.append(key)
-    for key, value in curve_tone.items():
-        curves.append(key)
-    for key, value in broken_tone.items():
-        brokens.append(key)
-    for key, value in rising_tone.items():
-        risings.append(key)
-    for key, value in drop_tone.items():
-        drops.append(key)
-
+def G2P_word(word, consonants, vowels, g2p_consonants, g2p_vowels, fallings, curves, brokens, risings, drops):
     # print(consonants)
     # print(vowels)    
     p_word = []
@@ -176,10 +145,41 @@ def G2P_word(word):
     return pword
 
 def G2P_text(text):
+    g2p_consonants = load_g2p_consonants()
+    g2p_vowels = load_g2p_vowels()
+    falling_tone = load_g2p_falling_tone()
+    curve_tone = load_g2p_curve_tone()
+    broken_tone = load_g2p_broken_tone()
+    rising_tone = load_g2p_rising_tone()
+    drop_tone = load_g2p_drop_tone()
+
+    consonants = []
+    vowels = []
+    fallings = []
+    curves = []
+    brokens = []
+    risings = []
+    drops = []
+
+    for key, value in g2p_consonants.items():
+        consonants.append(key)
+    for key, value in g2p_vowels.items():
+        vowels.append(key)
+    for key, value in falling_tone.items():
+        fallings.append(key)
+    for key, value in curve_tone.items():
+        curves.append(key)
+    for key, value in broken_tone.items():
+        brokens.append(key)
+    for key, value in rising_tone.items():
+        risings.append(key)
+    for key, value in drop_tone.items():
+        drops.append(key)
+
     text = text.split(' ')
     ptext = []
     for word in text:
-        ptext.append(G2P_word(word))
+        ptext.append(G2P_word(word, consonants, g2p_consonants, g2p_vowels, vowels, fallings, curves, brokens, risings, drops))
     ptext = ' '.join(ptext)
     return ptext
 
